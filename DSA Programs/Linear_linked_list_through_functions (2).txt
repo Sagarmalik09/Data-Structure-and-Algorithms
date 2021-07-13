@@ -1,0 +1,124 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+// create self ref stuct
+struct abc
+{
+  int data;
+  struct abc *next;
+};
+// search an item
+int search(struct abc*head,int item)
+     {
+	if(head==NULL)
+	    return 0;
+	else if(head->data==item)
+	    return 1;
+	else
+	   return search(head->next,item);
+     }
+//////// searching middle element
+void findmid(struct abc *head) 
+{ 
+    struct abc *slow_ptr=head; 
+    struct abc *fast_ptr=head; 
+  
+    if (head!=NULL) 
+    { 
+        while (fast_ptr!=NULL&&fast_ptr->next!=NULL) 
+        { 
+            fast_ptr=fast_ptr->next->next; 
+            slow_ptr=slow_ptr->next; 
+        } 
+        printf("The middle element is %d ", slow_ptr->data); 
+    } 
+} 
+//////////////////////////////dispaly function
+
+void dis(struct abc *head)
+{
+      if(head==NULL)
+	  return;
+      else
+      printf(" %d ",head->data);    // 123
+      dis(head->next);             // segment fault
+   //   printf(" %d ",head->data);    // 321\
+
+}
+struct abc* insert_at_End(struct abc *head,struct abc *back)
+{
+    // create a new node
+    struct abc *newnode;
+    newnode=(struct abc*)malloc(sizeof(struct abc));
+    printf("Enter Data");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    back->next=newnode;
+    newnode=NULL;
+    return head;
+}
+
+
+
+/////////////////////////// insert at begin////////////////
+struct abc* insert_at_begin(struct abc *head)
+{
+    // create a new node
+    struct abc *newnode;
+    newnode=(struct abc*)malloc(sizeof(struct abc));
+    printf("Enter Data");
+    scanf("%d",&newnode->data);
+    newnode->next=NULL;
+    // insert at begin
+    newnode->next=head;
+    head=newnode;
+    newnode=NULL;
+    return head;
+}
+
+
+struct abc* create_list(struct abc *head)
+     {
+	head=(struct abc*)malloc(sizeof(struct abc));
+	if(head==NULL)
+	    printf("Error: ");
+	else
+	  {
+	    printf("Enter Data");
+	    scanf("%d",&head->data);
+	    head->next=NULL;
+	  }
+       return head;
+     }
+// driver code
+void main()
+{
+ struct abc *head=NULL,*back;
+ int choice,item;
+ do
+ {
+  printf("\n1. Create list\n2. insert at begin\n3.insert at End\n4.Search middle element\n8.serach item\n9.dispaly\n0.exit\nEnter your choice=>");
+  scanf("%d",&choice);
+  switch(choice)
+  {
+    case 1:if(head==NULL)
+	       head=back=create_list(head);
+	   else
+	      printf("List already Exist:");getch();
+	      break;
+    case 2: head=insert_at_begin(head);
+	    break;
+    case 3: head=insert_at_End(head,back);
+	    back=back->next;
+	    break;
+	case 4:findmid(head);
+     	break;
+    case 8:printf("Enter item=>");scanf("%d",&item);
+	   printf("===>%d",search(head,item));getch();
+	   break;
+    case 9:dis(head);getch();break;
+    case 0: exit(0);
+   }
+ } while(1);
+
+}

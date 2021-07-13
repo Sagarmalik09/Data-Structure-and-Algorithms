@@ -1,0 +1,133 @@
+#include<stdio.h>
+#define MAX 5
+int dqueue[MAX];
+int front=-1,rear=-1;
+int insert_at_end()
+{
+    int num;
+    if(rear==MAX-1)
+    {
+        printf("Double ended queue is full..\n");
+        return 0;
+    }
+    if(front==-1)
+    {
+        front=rear=0;
+    }
+    else
+    {
+        rear++;
+    }
+    printf("\nEnter the Value.....");
+    scanf("%d",&num);
+    dqueue[rear]=num;
+    return 1;
+}
+int insert_at_begin()
+{
+    int num;
+    if(front==-1)
+    {
+        front=rear=0;
+    }
+    else if(front>0)
+    {
+        front--;
+    }
+    else
+    {
+        printf("\nDouble ended queue is full...\n");
+        return 0;
+    }
+    printf("\nEnter the Value.....");
+     scanf("%d",&num);
+    dqueue[front]=num;
+    return 1;
+}
+int delete_at_begin()
+{
+   if(front==-1)
+    {
+        printf("Double ended queue is empty..\n");
+        return 0;
+    } 
+    printf("\nDeleted element is %d",dqueue[front]);
+    if(front==rear)
+    {
+        front=-1;
+        rear=-1;
+    }
+    else
+    {
+        front++;
+    }
+}
+int delete_at_end()
+{
+   if(front==-1)
+    {
+        printf("Double ended queue is empty..\n");
+        return 0;
+    } 
+    printf("\nDeleted element is %d",dqueue[rear]);
+    if(front==rear)
+    {
+        front=-1;
+        rear=-1;
+    }
+    else
+    {
+        rear--;
+    }
+}
+int display()
+{
+    int i;
+    if(front==-1)
+    {
+        printf("Double ended queue is empty...\n");
+        return 0;
+    }
+    for(i=front;i<=rear;i++)
+    {
+        printf("%d\t",dqueue[i]);
+    }
+}
+int main()
+{
+    int num,choice;
+    while(1)
+    {
+        printf("\n1.INSERT AT END");
+        printf("\n2.INSERT AT BEGIN");
+        printf("\n3.DELETE AT BEGIN");
+        printf("\n4.DELETE AT END");
+        printf("\n5. DISPLAY ");
+        printf("\n6. Exit\n");
+        printf("\nEnter the choice....");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            insert_at_end();
+            break;
+            case 2:
+            insert_at_begin();
+            break;
+            case 3:
+            delete_at_begin();
+            break;
+            case 4:
+            delete_at_end();
+            break;
+            case 5:
+            display();
+            break;
+            case 6:
+            exit(1);
+            default:
+            printf("\n Wrong Choice...");
+        }
+    }
+    return 0;
+}

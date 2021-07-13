@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 10
+void init();
+void store_data(int);
+void display_data();
+void search_data(int);
+
+int htable[MAX];
+ int main()
+ {
+     int choice,num,sno;
+     init();
+     while(1)
+     {
+        printf("\n1.Store data....");
+        printf("\n2.Display data....");
+        printf("\n3.Search data....");
+        printf("\n4.Exit....");
+        printf("\nEnter your choice..");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("\nEnter number to store in hash table..");
+            scanf("%d",&num);
+            store_data(num);
+            break;
+            case 2:
+            display_data();
+            break;
+            case 3:
+            printf("\nEnter the search number...");
+            scanf("%d",&sno);
+            search_data(sno);
+            break;
+            case 4:
+            exit(1);
+            default:
+            printf("\nWrong choice...");
+        }
+     }
+     return 0;
+ }
+ void init()
+ {
+     int i;
+     for(i=0;i<MAX;i++)
+     {
+         htable[i]=-1;
+     }
+ }
+ void store_data(int num)
+ {
+    int hkey;
+    hkey=num%10;
+    htable[hkey]=num;
+ }
+ void display_data()
+ {
+    int i;
+    for(i=0;i<MAX;i++)
+    {
+        if(htable[i]!=-1)
+        printf("\nIndex no = %d and value = %d",i,htable[i]);
+    }
+ }
+ void search_data(int sno)
+ {
+     int hkey;
+     hkey=sno%10;
+     if(htable[hkey]==-1)
+     printf("\nKey value not found..");
+     else
+     printf("\nKey value found and index is %d",hkey);
+ }

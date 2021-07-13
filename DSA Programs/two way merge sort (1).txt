@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#define MAX 100
+void insert(int[],int);
+void mergesort(int[],int[],int,int,int[],int); 
+void display(int[],int);
+int main()
+{
+    int n1,n2;
+    printf("\nEnter the number of elements in array 1...");
+    scanf("%d",&n1);
+    printf("\nEnter the number of elements in array 2...");
+    scanf("%d",&n2);
+    int arr1[n1];
+    int arr2[n2];
+    int arr3[n1+n2];
+    printf("\nEnter %d elements...",n1);       
+    insert(arr1,n1);
+    printf("\nEnter %d elements...",n2);       
+    insert(arr2,n2);
+    printf("\nElements of array 1 are...\n");
+    display(arr1,n1);
+    printf("\nElements of array 2 are...\n");
+    display(arr2,n2);
+    mergesort(arr1,arr2,n1,n2,arr3,n1+n2);    
+    printf("\nElements of sorted array 3 are...\n");
+    display(arr3,n1+n2);
+    return 0;
+}
+void insert(int arr[],int size)
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+}
+
+void display(int arr[],int size)
+{
+    int i;
+    for(i=0;i<size;i++)
+    printf("\t%d",arr[i]);
+}
+void mergesort(int arr1[],int arr2[], int n1, int n2,int arr3[],int n3)
+{
+	int i=0, j=0, k=0;
+	while (i < n1 && j < n2) 
+	{
+		if (arr1[i] < arr2[j])
+		{
+			arr3[k] = arr1[i];
+			i++;
+			k++;
+		}
+		else 
+		{
+			arr3[k] = arr2[j];
+			j++;
+			k++;
+		}
+	}
+	while (i < n1) 
+	{
+		arr3[k] = arr1[i];
+		i++;
+		k++;
+	}
+	while (j < n2) 
+	{
+		arr3[k] = arr2[j];
+		j++;
+		k++;
+	}
+}

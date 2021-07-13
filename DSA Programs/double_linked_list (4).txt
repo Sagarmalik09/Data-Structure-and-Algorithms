@@ -1,0 +1,263 @@
+
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct doublelinkedlist
+{
+    int info;
+    struct doublelinkedlist*prev;
+    struct doublelinkedlist *next;
+}linked;
+linked *newnode=NULL,*last=NULL,*temp=NULL,*head=NULL,*back=NULL,*prev=NULL,*temp1=0,*temp2=0;
+int main()
+{
+    int num,choice,pos,count=0,flag=0,swap=0,swapped=0;
+    while(1)
+    {
+        printf("\n1. Insert at end");
+        printf("\n2. Traverse forward");
+        printf("\n3. Traverse backward");
+        printf("\n4. Delete at end");
+        printf("\n5. Insert at begin");
+        printf("\n6. Delete at begin");
+        printf("\n7. Insert at a position");                //Deletion at a position left              
+        printf("\n8. Seaching");
+        printf("\n9. Sorting");
+        printf("\n10. Exit");
+        printf("\n Enter the choice");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            newnode=(linked*)malloc(sizeof(linked));
+            if(newnode==NULL)
+            {
+                printf("Not enough memory");
+                exit(1);
+            }
+            printf("\n Enter a number");
+            scanf("%d",&num);
+            newnode->info=num;
+            newnode->next=NULL;
+            if(head==NULL)
+            {
+                newnode->prev=NULL;
+                head=newnode;
+                last=newnode;
+            }
+            else
+            {
+                newnode->prev=last;
+                last->next=newnode;
+                last= newnode;
+            }
+            break;
+            case 2:
+            if(head==NULL)
+            {
+                printf("Empty linked list");
+                exit(1);
+            }
+            printf("\n Data from 1 to n.. forward mode..");
+            temp=head;
+            while(temp!=NULL)
+            {
+                printf("\t %d",temp->info);
+                temp=temp->next;
+            }
+            break;
+            case 3:
+            if(head==NULL)
+            {
+                printf("Empty linked list");
+                exit(1);
+            }
+            printf("\n Data from n to 1.. backward mode..");
+            temp=last;
+            while(temp!=NULL)
+            {
+                printf("\t %d",temp->info);
+                temp=temp->prev;
+            }
+            break;
+            case 4:
+            if(head==NULL)
+            {
+                printf("Empty linked list");
+                exit(1);
+            }
+            
+            temp=head;
+            while(temp->next!=NULL)
+            {
+                back=temp;
+                temp=temp->next;
+            }
+            printf("\n Delete node= %d",temp->info);
+            if(temp!=head)
+            back->next=NULL;
+            last=back;
+            if(last==NULL)
+            head=NULL;
+            free(temp);
+            break;
+            case 5:
+            newnode=(linked *)malloc(sizeof(linked));
+            if(newnode==NULL)
+            {
+                printf("\nnot enough memory");
+                break;
+            }
+            printf("\nEnter a number:");
+            scanf("%d",&num);
+            temp=head;
+            if(temp==NULL)
+            {
+            newnode->prev=NULL;
+            newnode->info=num;
+            newnode->next=NULL;
+            head=newnode;
+            }
+            else
+            {
+            newnode->prev=NULL;
+            newnode->info=num;
+            newnode->next=head;
+            head->prev=newnode;
+            head=newnode;
+            }
+            break;
+            case 6:
+            temp=head;
+            if(temp==NULL)
+            {
+                printf("\nEmpty linked list");
+                exit(1);
+            }
+            temp=head;
+            if(temp->next==NULL)
+            {
+                head=NULL;
+                printf("\n Deleted node: %d",temp->info);
+                free(temp);
+            }
+             else  
+            {  
+                
+                 temp -> prev = NULL;
+                 head = temp -> next; 
+                  printf("\nDeleted node: %d",temp->info); 
+                  free(temp);
+            }  
+            if(head==NULL)
+            last=NULL;
+            break;
+            case 7:
+            if(head==NULL)
+            {
+                printf("\nempty linked list");
+                break;
+            }
+            newnode=(linked *)malloc(sizeof(linked));
+            if(newnode==NULL)
+            {
+                printf("\nnot enough memory");
+                exit(1);
+            }
+                printf("\nEnter a number:");
+                scanf("%d",&num);
+                newnode->info=num;
+                printf("\nEnter the position:");
+                scanf("%d",&pos);
+                temp=head;
+            while(temp!=NULL)
+            {
+                count++;
+                if(pos==count)
+                break;
+                prev=temp;
+                temp=temp->next;
+            }
+            if(pos>=count+1)
+            {
+                printf("\nPosition not exist");
+                break;
+            }
+               
+               newnode->next = temp->next;  
+               newnode -> prev = temp;  
+               temp->next = newnode;  
+               temp->next->prev=newnode;  
+            /*if(temp!=head)
+            {
+                prev->next=newnode;
+                newnode->next=temp;
+                
+            }
+            if(temp==head)
+            {
+                head=newnode;
+            }*/
+            break;
+            case 8:
+            if(head==NULL)
+            {
+                printf("\nempty linked list");
+            }
+              printf("\n Enter a number of Search : ");
+              scanf("%d", &num);
+              temp = head;
+            while(temp!=NULL)
+            {
+                count++;
+                if(temp->info == num)
+                {
+                  flag = 1;
+                  break;
+                }
+                temp = temp->next;
+            }
+            if(flag==1)
+            {
+                printf("\n Number is found and position is %d", count);
+                count=0;
+            }
+            else
+            {
+                printf("Number not Found ..");
+            }
+            break;
+            case 9:
+            if(head==NULL)
+            {
+                printf("\nEmpty linked list");
+                exit(1);
+            }
+            temp=head;
+            do
+            {
+                swapped=0;
+                temp1=head;
+                temp2=temp1->next;
+                while(temp1->next!=NULL)
+                {
+                    if(temp1->info > temp2->info)
+                    {
+                        swap=temp1->info;
+                        temp1->info=temp2->info;
+                        temp2->info=swap;
+                        swapped=1;
+                    }
+                
+                    temp1=temp1->next;
+                    temp2=temp2->next;
+                }
+            }while(swapped);
+            break;        
+            case 10:
+            exit(1);
+        }
+    }
+
+    return 0;
+}

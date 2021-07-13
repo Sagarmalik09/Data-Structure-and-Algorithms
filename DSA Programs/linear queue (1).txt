@@ -1,0 +1,95 @@
+#include<conio.h>
+#include <stdio.h>
+#include<stdlib.h>
+#define MAX 5
+
+int is_full();
+int is_empty();
+void enqueue();
+void dequeue();
+void display();
+
+int queue[MAX];
+int front=-1,rear=-1;
+
+int main()
+{
+    int choice,res;
+    while (1)
+    {
+        printf("\n1.Insert an element:");
+        printf("\n2.Delete an element:");
+        printf("\n3.Display:");
+        printf("\n4.Exit");
+        printf("\nEnter your choice : ");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1:
+            res=is_full();
+            if(res==1)
+            enqueue();
+            break;
+            case 2:
+            res=is_empty();
+            if(res==1)
+            dequeue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(1);
+            break;
+            default:
+            printf("Wrong choice...");
+            break;
+        }
+    }
+    return 0;
+}
+int is_full()
+{
+    if(rear==MAX-1)
+    {
+        printf("\n Circular Queue is full..\n");
+        return 0;
+    }
+    else 
+    return 1;
+}
+int is_empty()
+{
+    if(front==-1 || front>rear)
+    {
+        printf("\n Circular Queue is empty..");
+        return 0;
+    }
+    else 
+    return 1;
+}
+void enqueue()
+{
+    int num;
+    if(rear== - 1)
+    front = 0;
+    printf("Insert the element in queue : ");
+    scanf("%d",&num);
+    rear = rear + 1;
+    queue[rear] =num;
+}
+void dequeue()
+{
+    printf("Deleted element is : %d",queue[front]);
+        front = front + 1;
+}
+void display()
+{
+    int i;
+    if(is_empty()==1)
+    {
+        printf("\nQueue is:  \n");
+        for(i=front;i<=rear;i++)
+        printf("\t%d",queue[i]);
+    }
+}

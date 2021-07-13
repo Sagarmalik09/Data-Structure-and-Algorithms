@@ -1,0 +1,72 @@
+#include<conio.h>
+#include <stdio.h>
+#include<stdlib.h>
+#define MAX 50
+int is_overflow();
+int push(char);
+void display();
+int isempty();
+
+int stack[MAX];
+int top=-1;
+int is_overflow()
+{
+    if(top==MAX-1)
+    {
+        printf("\nStack is overflow so you cannot insert the value..\n");
+        return 1;
+    }
+    return 0;
+}
+int push(char str)
+{
+    int rvalue;
+    rvalue=is_overflow();
+    if(rvalue==1)
+    return 1;
+    else
+    {
+    top++;
+    stack[top]=str;
+    }
+    return 0;
+}
+void display()
+{
+    int i,rvalue;
+    rvalue=isempty();
+    if(rvalue==1)
+    printf("\nstack is empty");
+
+    for(i=top;i>=0;i--)
+    printf("\t%d",stack[i]);
+}
+int isempty()
+{
+    if(top<0)
+    {
+        printf("\nstack is empty...\n");
+        return 1;
+    }
+    else
+    return 0;
+}
+
+int main()
+{
+   char str[]="string reverse";
+   int i,rvalue=0,len=0;
+   while(str[len]!='\0')
+   {
+       len++;
+   }
+   for(i=0;i<len;i++)
+   {
+       rvalue=push(str[i]);
+       if(rvalue==1)
+       break;
+   }
+   if(rvalue==0)
+   display();
+    return 0;
+}
